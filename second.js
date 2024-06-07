@@ -29,7 +29,18 @@ async function handleSubmit(search) {
         
         if (result && result.length > 0) {
             const firstResult = result[0];
-            const resultPageUrl = `result.html?result=${encodeURIComponent(JSON.stringify(firstResult))}`;
+            const resultPageUrl = `result.html?result=${encodeURIComponent(JSON.stringify({
+                title: firstResult.title,
+                releaseYear: firstResult.releaseYear,
+                rating: firstResult.rating,
+                overview: firstResult.overview,
+                cast: firstResult.cast,
+                imageSet: {
+                    verticalPoster: {
+                        w480: firstResult?.imageSet?.verticalPoster.w480
+                    }
+                }
+            }))}`;
             window.location.href = resultPageUrl;
         } else {
             alert('No results found');
