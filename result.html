@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Result</title>
+  <style>
+    body{
+        background-color: black;
+        color:white
+    }
+    .movie-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width:60%;
+      background-color: rgba(114, 112, 112, 0.34);
+      margin:auto;
+      padding:20px;
+
+    }
+    .movie-details img {
+      width: 40%;
+      height:40%;
+      box-shadow: 2px 2px 4px brown;
+    }
+    .movie-details h1{
+        color:rgb(219, 84, 84);
+    }
+    .box{
+        display: flex;
+        align-items: center;
+        justify-content:space-evenly;
+        flex-direction: row;
+      }
+      h4{
+        margin:10px;
+      }
+      .desc{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+       border: 1px solid white;
+       padding: 10px;
+       margin:10px;
+       width:90%;
+      }
+      
+  </style>
+</head>
+<body>
+  <div class="movie-details">
+    <img id="poster" src="" alt="Movie Poster">
+    <h1 id="title"></h1>
+<div class="box">
+    <h4 id="release-year"></h4>
+    <h4 id="imdb-rating"></h4>
+    </div>
+    <div class="desc">
+    <h3>Description</h3>
+    <p id="description"></p>
+    </div>
+    
+    <div class="desc">
+        <h3>Actors</h3>
+        <p id="actors"></p>
+        </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      // Parse the query string to get the search result data
+      const urlParams = new URLSearchParams(window.location.search);
+      const result = JSON.parse(urlParams.get('result'));
+
+      
+      document.getElementById('poster').src = result.imageSet.verticalPoster.w480;
+      document.getElementById('title').textContent = result.title;
+      document.getElementById('release-year').textContent = `Release Year: ${result.releaseYear}`;
+      document.getElementById('imdb-rating').textContent = `IMDB Rating: ${result.rating}`;
+      document.getElementById('description').textContent = ` ${result.overview}`;
+      document.getElementById('actors').textContent = ` ${result.cast.join(', ')}`;
+    });
+  </script>
+</body>
+</html>
